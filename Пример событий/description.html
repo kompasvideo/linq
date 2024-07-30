@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Пример событий</title>
+        <link href="description/Galleries.css" type="text/css" rel="Stylesheet" /><link href="description/Layout.css" type="text/css" rel="Stylesheet" /><link href="description/Brand.css" type="text/css" rel="Stylesheet" />
+        <link href="description/iframedescription.css" rel="Stylesheet" type="text/css" />
+        <script src="description/offline.js" type="text/javascript"></script>
+        <style type="text/css">
+            #projectInfo {
+                overflow: auto;
+            }
+            #longDesc {
+                clear:both;
+                margin: 25px 0 10px 0;
+            }
+
+            #SampleIndexList{
+                margin-left: 15px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="offlineDescription">
+        <h1>Пример событий</h1>
+        <br/>
+        <div id="projectInfo">
+            <div class="section">
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Технологии">Технологии</label>
+                        <div id="Технологии">
+                            .NET Framework
+                        </div>
+                    </div>
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Темы">Темы</label>
+                        <div id="Темы">
+                            events, Language Samples
+                        </div>
+                    </div>
+                <div class="itemBarLong">
+                    <label for="Platforms">Platforms</label>
+                    <div id="Platforms">
+                        Desktop
+                    </div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="Requirements">Requirements</label>
+                    <div id="Requirements">
+                        
+                    </div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Primary Language</label>
+                    <div id="LastUpdated">en-US</div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Последнее обновление</label>
+                    <div id="LastUpdated">28.11.2011</div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="License">Лицензия</label>
+                    <div id="License">
+                        <a href="license.rtf">MS-LPL</a></div>
+                </div>
+                <div class="itemBar">
+                    <div class="viewonlinecont">
+                        <a data-link="online" href="http://code.msdn.microsoft.com/Events-Sample-9390aa6e">Просмотреть этот пример в Интернете</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                   
+<script type="text/javascript">
+    function initializePage() {
+        var otherTabClass = 'otherTab';
+        var hiddenPreClass = 'hidden';
+
+        var htmlDecode = function(encodedData) {
+            var decodedData = "";
+            if (encodedData) {
+                var div = document.createElement('div');
+                div.innerHTML = encodedData;
+                decodedData = div.firstChild.nodeValue.replace( /\\r\\n/ig , '\r\n');
+            }
+            return decodedData;
+        };
+                
+        Galleries.iterateElem(Galleries.findElem(null, 'div', 'scriptcode'), function (index, scriptBlock) {
+            var titleElem = Galleries.findElem(scriptBlock, 'div', 'title')[0];
+            var labelElems = Galleries.findElem(titleElem, 'span');
+            if (labelElems.length == 0) {
+                labelElems = titleElem;
+            }
+            var languageSpans = Galleries.findElem(scriptBlock, 'span', 'hidden');
+            var pres = Galleries.findElem(scriptBlock, 'pre');
+            if (languageSpans.length > 0 && pres.length > 1) {
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    var languageSpan = languageSpans[index];
+                            
+                    elem.code = codePre.innerHTML.replace( /(\r(\n)?)|((\r)?\n)/ig , '\\r\\n');
+                            
+                    codePre.className = codePre.className.replace(hiddenPreClass, '');
+                            
+                    languageSpan.parentNode.removeChild(languageSpan);
+                });
+
+                pres = Galleries.findElem(scriptBlock, 'pre');
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    if (index == 0) {
+                        scriptBlock.activeTab = 0;
+                    }
+                    else {
+                        labelSpan.className += otherTabClass;
+                        codePre.className += hiddenPreClass;
+                    }
+                    Galleries.attachEventHandler(labelSpan, 'click', function(e) {
+                        var activeTab = scriptBlock.activeTab;
+                        labelElems[activeTab].className += otherTabClass;
+                        pres[activeTab].className += hiddenPreClass;
+
+                        codePre.className = codePre.className.replace(hiddenPreClass, '');
+                        labelSpan.className = labelSpan.className.replace(otherTabClass, '');
+                        scriptBlock.activeTab = index;
+                    });
+                });
+
+                var preview = Galleries.findElem(scriptBlock, 'div', 'preview');
+                if (preview.length == 0) {
+                    preview.push(pres[pres.length - 1]);
+                }
+                Galleries.iterateElem(preview, function(index, elem) {
+                    elem.parentNode.removeChild(elem);
+                });
+
+                if (window.clipboardData && clipboardData.setData) {
+                    var copyLink = document.createElement('a');
+                    copyLink.href = 'javascript:void(0);';
+                    copyLink.className = 'copyCode';
+                    copyLink.innerHTML = 'Копировать код';
+                    Galleries.attachEventHandler(copyLink, 'click', function (e) {
+                        clipboardData.setData("Text", htmlDecode(labelElems[scriptBlock.activeTab].code));
+                        return false;
+                    });
+                    scriptBlock.insertBefore(copyLink, scriptBlock.childNodes[0]);
+                }
+            }
+        });
+    }
+
+    Galleries.onWindowLoad(function(){
+        initializePage();
+    });
+
+</script>
+<div id="longDesc">
+    
+<h1>
+<h1>При&#1084;ер событий</h1>
+<div id="mainSection">
+<div id="mainBody">
+<div id="allHistory" class="saveHistory"></div>
+<p></p>
+<p>Данный при&#1084;ер содержит сведения по объявлению, вызову и настройке событий в C#. Дополнительные сведения с&#1084;. в разделе .</p>
+<div class="alert">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<th align="left">При&#1084;ечание по безопасности </th>
+</tr>
+<tr>
+<td>
+<p>Данный код при&#1084;ера предоставлен для иллюстрирования концепции и не должен использоваться в приложениях или веб-узлах, так как он не де&#1084;онстрирует опыт написания безопасного кода. Microsoft не несет ответственность за случайные или косвенные повреждения,
+ вызванные при&#1084;енение&#1084; кода при&#1084;ера не по назначению.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 class="heading">Построение и выполнение при&#1084;еров событий в Visual Studio</h1>
+<div id="procedureSection1" class="section">
+<ol>
+<li>
+<p>В <b>Обозревателе решений</b> щелкните правой кнопкой проект Events1 и выберите
+<b>Установить как автозагружае&#1084;ый проект</b>.</p>
+</li><li>
+<p>В &#1084;еню <b>Отладка</b> щелкните <b>Запуск без отладки</b>.</p>
+</li><li>
+<p>Повторите предыдущие шаги для Events2.</p>
+</li></ol>
+</div>
+<h1 class="heading">Построение и выполнение при&#1084;еров событий из ко&#1084;андной строки</h1>
+<div id="procedureSection2" class="section">
+<ol>
+<li>
+<p>С по&#1084;ощью ко&#1084;анды <b>Из&#1084;енить каталог</b> перейдите в каталог Events1.</p>
+</li><li>
+<p>Введите следующие данные: </p>
+<div class="code"><span>
+<table width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td colspan="2">
+<pre>csc events1.cs
+events1</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</span></div>
+</li><li>
+<p>С по&#1084;ощью ко&#1084;анды <b>Из&#1084;енить каталог</b> перейдите в каталог Events2.</p>
+</li><li>
+<p>Введите следующие данные: </p>
+<div class="code"><span>
+<table width="100%" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td colspan="2">
+<pre>csc events2.cs
+events2</pre>
+</td>
+</tr>
+</tbody>
+</table>
+</span></div>
+</li></ol>
+</div>
+</div>
+<div id="footer">
+<div class="footerLine"></div>
+Для отправки предложений или отчета об ошибке по Справке или другой функции данного продукта перейдите на
+<a href="http://go.microsoft.com/fwlink/?LinkId=9790442">веб-узел отзывов</a>. </div>
+</div>
+</h1>
+
+</div>
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>CustomActionProjectItem</title>
+        <link href="description/Galleries.css" type="text/css" rel="Stylesheet" /><link href="description/Layout.css" type="text/css" rel="Stylesheet" /><link href="description/Brand.css" type="text/css" rel="Stylesheet" />
+        <link href="description/iframedescription.css" rel="Stylesheet" type="text/css" />
+        <script src="description/offline.js" type="text/javascript"></script>
+        <style type="text/css">
+            #projectInfo {
+                overflow: auto;
+            }
+            #longDesc {
+                clear:both;
+                margin: 25px 0 10px 0;
+            }
+
+            #SampleIndexList{
+                margin-left: 15px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="offlineDescription">
+        <h1>CustomActionProjectItem</h1>
+        <br/>
+        <div id="projectInfo">
+            <div class="section">
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Технологии">Технологии</label>
+                        <div id="Технологии">
+                            SharePoint
+                        </div>
+                    </div>
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Темы">Темы</label>
+                        <div id="Темы">
+                            Extensibility, Custom Action, Language Samples, SharePoint Project Template
+                        </div>
+                    </div>
+                <div class="itemBarLong">
+                    <label for="Platforms">Platforms</label>
+                    <div id="Platforms">
+                        Desktop
+                    </div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="Requirements">Requirements</label>
+                    <div id="Requirements">
+                        
+                    </div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Primary Language</label>
+                    <div id="LastUpdated">en-US</div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Последнее обновление</label>
+                    <div id="LastUpdated">28.11.2011</div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="License">Лицензия</label>
+                    <div id="License">
+                        <a href="license.rtf">MS-LPL</a></div>
+                </div>
+                <div class="itemBar">
+                    <div class="viewonlinecont">
+                        <a data-link="online" href="http://code.msdn.microsoft.com/CustomActionProjectItem-d639ba59">Просмотреть этот пример в Интернете</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                   
+<script type="text/javascript">
+    function initializePage() {
+        var otherTabClass = 'otherTab';
+        var hiddenPreClass = 'hidden';
+
+        var htmlDecode = function(encodedData) {
+            var decodedData = "";
+            if (encodedData) {
+                var div = document.createElement('div');
+                div.innerHTML = encodedData;
+                decodedData = div.firstChild.nodeValue.replace( /\\r\\n/ig , '\r\n');
+            }
+            return decodedData;
+        };
+                
+        Galleries.iterateElem(Galleries.findElem(null, 'div', 'scriptcode'), function (index, scriptBlock) {
+            var titleElem = Galleries.findElem(scriptBlock, 'div', 'title')[0];
+            var labelElems = Galleries.findElem(titleElem, 'span');
+            if (labelElems.length == 0) {
+                labelElems = titleElem;
+            }
+            var languageSpans = Galleries.findElem(scriptBlock, 'span', 'hidden');
+            var pres = Galleries.findElem(scriptBlock, 'pre');
+            if (languageSpans.length > 0 && pres.length > 1) {
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    var languageSpan = languageSpans[index];
+                            
+                    elem.code = codePre.innerHTML.replace( /(\r(\n)?)|((\r)?\n)/ig , '\\r\\n');
+                            
+                    codePre.className = codePre.className.replace(hiddenPreClass, '');
+                            
+                    languageSpan.parentNode.removeChild(languageSpan);
+                });
+
+                pres = Galleries.findElem(scriptBlock, 'pre');
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    if (index == 0) {
+                        scriptBlock.activeTab = 0;
+                    }
+                    else {
+                        labelSpan.className += otherTabClass;
+                        codePre.className += hiddenPreClass;
+                    }
+                    Galleries.attachEventHandler(labelSpan, 'click', function(e) {
+                        var activeTab = scriptBlock.activeTab;
+                        labelElems[activeTab].className += otherTabClass;
+                        pres[activeTab].className += hiddenPreClass;
+
+                        codePre.className = codePre.className.replace(hiddenPreClass, '');
+                        labelSpan.className = labelSpan.className.replace(otherTabClass, '');
+                        scriptBlock.activeTab = index;
+                    });
+                });
+
+                var preview = Galleries.findElem(scriptBlock, 'div', 'preview');
+                if (preview.length == 0) {
+                    preview.push(pres[pres.length - 1]);
+                }
+                Galleries.iterateElem(preview, function(index, elem) {
+                    elem.parentNode.removeChild(elem);
+                });
+
+                if (window.clipboardData && clipboardData.setData) {
+                    var copyLink = document.createElement('a');
+                    copyLink.href = 'javascript:void(0);';
+                    copyLink.className = 'copyCode';
+                    copyLink.innerHTML = 'Копировать код';
+                    Galleries.attachEventHandler(copyLink, 'click', function (e) {
+                        clipboardData.setData("Text", htmlDecode(labelElems[scriptBlock.activeTab].code));
+                        return false;
+                    });
+                    scriptBlock.insertBefore(copyLink, scriptBlock.childNodes[0]);
+                }
+            }
+        });
+    }
+
+    Galleries.onWindowLoad(function(){
+        initializePage();
+    });
+
+</script>
+<div id="longDesc">
+    
+<p>' © Корпорация Майкрософт (Microsoft Corp.). &nbsp;Все права защищены.<br>
+' Этот код выпущен на условиях открытой <br>
+' лицензии Майкрософт (MS-PL, http://go.microsoft.com/?linkid=9791213.)<br>
+<br>
+<br>
+Это образец расширения Visual Studio 2010, созданного для использования в&#1084;есте <br>
+с новы&#1084;и шаблона&#1084;и проектов SharePoint. &nbsp;В не&#1084; используются API расширяе&#1084;ости,
+<br>
+входящие в ко&#1084;плект новых средств разработки SharePoint в составе Visual Studio <br>
+2010. Это расширение предназначено для поддержки настраивае&#1084;ого действия <br>
+SharePoint. &nbsp;Чтобы использовать данный образец по назначению, необходи&#1084;о <br>
+установить пакет SDK для Visual Studio 2010. &nbsp;Его &#1084;ожно загрузить со страницы
+<br>
+http://go.microsoft.com/fwlink/?LinkId=164562.<br>
+<br>
+Решение содержит два проекта:<br>
+- Проект библиотеки классов, реализующий расширение.<br>
+- Проект VSIX для упаковки расширения в файл VSIX. Этот файл используется для <br>
+&nbsp;установки расширения.<br>
+<br>
+Чтобы запустить образец, откройте в Visual Studio 2010 версию решения <br>
+CustomActionProjectItem для Visual Basic или C# и наж&#1084;ите клавишу F5. Будут <br>
+выполнены следующие действия:<br>
+- Построение расширения на основе проекта ProjectItemDefinition.<br>
+- Создание пакета VSIX на основе проекта CustomActionProjectItem.<br>
+- Запуск экспери&#1084;ентального экзе&#1084;пляра Visual Studio, в которо&#1084; устанавливается <br>
+&nbsp;пакет VSIX.<br>
+<br>
+В экспери&#1084;ентально&#1084; экзе&#1084;пляре Visual Studio &#1084;ожно тестировать настраивае&#1084;ое <br>
+действие с по&#1084;ощью следующей процедуры:<br>
+- Создайте новый пустой проект SharePoint. Этот шаблон проекта становится <br>
+&nbsp;доступны&#1084;, если в диалогово&#1084; окне «Создание проекта» в узле «SharePoint» <br>
+&nbsp;выбрать узел «2010». Используйте тот же язык програ&#1084;&#1084;ирования (Visual Basic
+<br>
+&nbsp;или C#), что и в открыто&#1084; проекте CustomActionProjectItem.<br>
+- В окне «Мастер настройки SharePoint» введите URL-адрес сайта SharePoint на <br>
+&nbsp;локально&#1084; ко&#1084;пьютере и наж&#1084;ите кнопку «Готово».<br>
+- После создания проекта щелкните его узел в обозревателе решений правой <br>
+&nbsp;кнопкой &#1084;ыши и выберите «Добавить | Новый эле&#1084;ент».<br>
+- В диалогово&#1084; окне «Добавление нового эле&#1084;ента» щелкните узел «SharePoint», <br>
+&nbsp;выберите эле&#1084;ент «Настраивае&#1084;ое действие» и наж&#1084;ите кнопку «Добавить».<br>
+<br>
+Настраивае&#1084;ое действие будет добавлено в проект. Можно выполнить следующие <br>
+задачи:<br>
+- В обозревателе решений щелкните правой кнопкой &#1084;ыши узел CustomAction и <br>
+&nbsp;выберите в контекстно&#1084; &#1084;еню ко&#1084;анду «Конструктор настраивае&#1084;ых действий». Это
+<br>
+&nbsp;ко&#1084;анда добавляется в &#1084;еню после установки расширения.<br>
+- В обозревателе решений выберите узел CustomAction и откройте окно «Свойства». <br>
+&nbsp;Убедитесь, что в окне свойств показано «Свойство настраивае&#1084;ого действия». <br>
+&nbsp;Это свойство добавляется при установке расширения. <br>
+- Из&#1084;ените содержи&#1084;ое файла Elements.xml в эле&#1084;енте проекта CustomAction и <br>
+&nbsp;наж&#1084;ите клавишу F5, чтобы развернуть его на локально&#1084; сайте, который был <br>
+&nbsp;указан при создании проекта.<br>
+<br>
+<br>
+<br>
+</p>
+
+</div>
+
+
+    </div>
+</body>
+</html>

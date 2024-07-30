@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>BDCSamples</title>
+        <link href="description/Galleries.css" type="text/css" rel="Stylesheet" /><link href="description/Layout.css" type="text/css" rel="Stylesheet" /><link href="description/Brand.css" type="text/css" rel="Stylesheet" />
+        <link href="description/iframedescription.css" rel="Stylesheet" type="text/css" />
+        <script src="description/offline.js" type="text/javascript"></script>
+        <style type="text/css">
+            #projectInfo {
+                overflow: auto;
+            }
+            #longDesc {
+                clear:both;
+                margin: 25px 0 10px 0;
+            }
+
+            #SampleIndexList{
+                margin-left: 15px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="offlineDescription">
+        <h1>BDCSamples</h1>
+        <br/>
+        <div id="projectInfo">
+            <div class="section">
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Технологии">Технологии</label>
+                        <div id="Технологии">
+                            SharePoint
+                        </div>
+                    </div>
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Темы">Темы</label>
+                        <div id="Темы">
+                            Language Samples, External Data Source, Database Connectivity
+                        </div>
+                    </div>
+                <div class="itemBarLong">
+                    <label for="Platforms">Platforms</label>
+                    <div id="Platforms">
+                        Desktop
+                    </div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="Requirements">Requirements</label>
+                    <div id="Requirements">
+                        
+                    </div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Primary Language</label>
+                    <div id="LastUpdated">en-US</div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Последнее обновление</label>
+                    <div id="LastUpdated">28.11.2011</div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="License">Лицензия</label>
+                    <div id="License">
+                        <a href="license.rtf">MS-LPL</a></div>
+                </div>
+                <div class="itemBar">
+                    <div class="viewonlinecont">
+                        <a data-link="online" href="http://code.msdn.microsoft.com/BDCSamples-595b502b">Просмотреть этот пример в Интернете</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                   
+<script type="text/javascript">
+    function initializePage() {
+        var otherTabClass = 'otherTab';
+        var hiddenPreClass = 'hidden';
+
+        var htmlDecode = function(encodedData) {
+            var decodedData = "";
+            if (encodedData) {
+                var div = document.createElement('div');
+                div.innerHTML = encodedData;
+                decodedData = div.firstChild.nodeValue.replace( /\\r\\n/ig , '\r\n');
+            }
+            return decodedData;
+        };
+                
+        Galleries.iterateElem(Galleries.findElem(null, 'div', 'scriptcode'), function (index, scriptBlock) {
+            var titleElem = Galleries.findElem(scriptBlock, 'div', 'title')[0];
+            var labelElems = Galleries.findElem(titleElem, 'span');
+            if (labelElems.length == 0) {
+                labelElems = titleElem;
+            }
+            var languageSpans = Galleries.findElem(scriptBlock, 'span', 'hidden');
+            var pres = Galleries.findElem(scriptBlock, 'pre');
+            if (languageSpans.length > 0 && pres.length > 1) {
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    var languageSpan = languageSpans[index];
+                            
+                    elem.code = codePre.innerHTML.replace( /(\r(\n)?)|((\r)?\n)/ig , '\\r\\n');
+                            
+                    codePre.className = codePre.className.replace(hiddenPreClass, '');
+                            
+                    languageSpan.parentNode.removeChild(languageSpan);
+                });
+
+                pres = Galleries.findElem(scriptBlock, 'pre');
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    if (index == 0) {
+                        scriptBlock.activeTab = 0;
+                    }
+                    else {
+                        labelSpan.className += otherTabClass;
+                        codePre.className += hiddenPreClass;
+                    }
+                    Galleries.attachEventHandler(labelSpan, 'click', function(e) {
+                        var activeTab = scriptBlock.activeTab;
+                        labelElems[activeTab].className += otherTabClass;
+                        pres[activeTab].className += hiddenPreClass;
+
+                        codePre.className = codePre.className.replace(hiddenPreClass, '');
+                        labelSpan.className = labelSpan.className.replace(otherTabClass, '');
+                        scriptBlock.activeTab = index;
+                    });
+                });
+
+                var preview = Galleries.findElem(scriptBlock, 'div', 'preview');
+                if (preview.length == 0) {
+                    preview.push(pres[pres.length - 1]);
+                }
+                Galleries.iterateElem(preview, function(index, elem) {
+                    elem.parentNode.removeChild(elem);
+                });
+
+                if (window.clipboardData && clipboardData.setData) {
+                    var copyLink = document.createElement('a');
+                    copyLink.href = 'javascript:void(0);';
+                    copyLink.className = 'copyCode';
+                    copyLink.innerHTML = 'Копировать код';
+                    Galleries.attachEventHandler(copyLink, 'click', function (e) {
+                        clipboardData.setData("Text", htmlDecode(labelElems[scriptBlock.activeTab].code));
+                        return false;
+                    });
+                    scriptBlock.insertBefore(copyLink, scriptBlock.childNodes[0]);
+                }
+            }
+        });
+    }
+
+    Galleries.onWindowLoad(function(){
+        initializePage();
+    });
+
+</script>
+<div id="longDesc">
+    
+<p>' © Корпорация Майкрософт (Microsoft Corp.). &nbsp;Все права защищены.<br>
+' Этот код выпущен на условиях открытой <br>
+' лицензии Майкрософт (MS-PL, http://go.microsoft.com/?linkid=9791213.)<br>
+<br>
+Файл сведений***<br>
+<br>
+Эти сведения относятся к образца&#1084; проектов VB и C#.<br>
+<br>
+В этих образцах BDC производится подключение к базе данных «Борей» как внешне&#1084;у <br>
+источнику данных. Перед запуско&#1084; образца проекта вни&#1084;ательно прочитайте <br>
+следующие за&#1084;етки и убедитесь в наличии подключения к базе данных «Борей».<br>
+<br>
+<br>
+****<br>
+Подготовка базы данных «Борей»<br>
+****<br>
+<br>
+Если база данных «Борей» уже и&#1084;еется, достаточно открыть файл Setting.setting в <br>
+каждо&#1084; проекте и за&#1084;енить значение NORTHWNDConnectionString своей строкой <br>
+подключения.<br>
+<br>
+В противно&#1084; случае выполните следующие действия:<br>
+<br>
+1. При выполнении следующих шагов предполагается, что на ко&#1084;пьютере уже <br>
+&nbsp; установлено приложение SQL Express, бесплатно включае&#1084;ое в ко&#1084;плекты решений
+<br>
+&nbsp; Visual Studio и SharePoint Server. Если оно не установлено, предварительно
+<br>
+&nbsp; посетите веб-сайт http://www.microsoft.com/express/sql/download/ и <br>
+&nbsp; установите SQL Express.<br>
+<br>
+2. Создайте базу данных SampleNorthwind. Для этого откройте VS. Выберите <br>
+&nbsp; ко&#1084;анду «Вид -&gt; Обозреватель серверов». Щелкните правой кнопкой &#1084;ыши узел
+<br>
+&nbsp; «Подключения данных» в окне «Обозреватель серверов» и выберите ко&#1084;анду <br>
+&nbsp; «Создание новой базы данных SQL Server».<br>
+<br>
+3. В окне приглашения введите «localhost\sqlexpress» в качестве и&#1084;ени сервера и <br>
+&nbsp; присвойте базе данных и&#1084;я «SampleNorthwind».<br>
+<br>
+&nbsp; * Если используется SQL Express из ко&#1084;плекта поставки SharePoint Server, <br>
+&nbsp; &nbsp; в&#1084;есто «localhost\sqlexpress» укажите «localhost\sharepoint».<br>
+<br>
+4. Откройте окно ко&#1084;андной строки.<br>
+<br>
+5. В ко&#1084;андной строке введите следующую ко&#1084;анду, после чего наж&#1084;ите клавишу <br>
+&nbsp; ВВОД: <br>
+<br>
+sqlcmd -S localhost\sqlexpress -d samplenorthwind -i &lt;Путь файла <br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CreateSampleNorthwindDB.sql&gt;<br>
+&nbsp; <br>
+&nbsp; * Файл CreateSampleNorthwindDB.sql находится в той же папке, что и данный <br>
+&nbsp; &nbsp; файл сведений. Он используется для авто&#1084;атического создания схе&#1084;ы и данных
+<br>
+&nbsp; &nbsp; таблицы клиентов.<br>
+<br>
+<br>
+*********<br>
+Развертывание &#1084;одели подключения к бизнес-данны&#1084;<br>
+*********<br>
+<br>
+Теперь &#1084;ожно открыть при&#1084;еры проектов. Сначала потребуется указать URL-адрес <br>
+сайта проекта. Для этого щелкните узел проекта в окне «Свойства» и задайте для <br>
+URL-адреса сайта значение «http://localhost». Наж&#1084;ите клавишу F5 для отладки <br>
+или выберите ко&#1084;анду Построение-&gt;Развернуть, чтобы развернуть &#1084;одель <br>
+подключения к бизнес-данны&#1084;.<br>
+<br>
+* Следует и&#1084;еть в виду, что если вы собираетесь работать с обои&#1084;и при&#1084;ера&#1084;и <br>
+&nbsp;проектов, для подключения второго проекта реко&#1084;ендуется создать вторую <br>
+&nbsp;таблицу базы данных.<br>
+<br>
+Сейчас оба при&#1084;ера проекта подключены к одной, только что созданной, базе <br>
+данных, поэто&#1084;у &#1084;ожет оказаться, что во вре&#1084;я выполнения только один проект <br>
+будет правильно подключен к базе данных. Во избежание конфликтов данных <br>
+настоятельно реко&#1084;ендуется создать вторую таблицу. Для этого достаточно <br>
+повторно выполнить описанную выше процедуру, лишь указав другое и&#1084;я таблицы. <br>
+После этого откройте файл Setting.setting в проекте и из&#1084;ените значение <br>
+NORTHWNDConnectionString для подключения к новой таблице.<br>
+<br>
+<br>
+*****<br>
+Создание внешнего списка на сайте SharePoint<br>
+*****<br>
+<br>
+После того как &#1084;одель подключения к бизнес-данны&#1084; успешно развернута, &#1084;ожно <br>
+создать на сайте SharePoint внешний список для работы с данны&#1084;и. <br>
+<br>
+Для этого выполните следующие действия: <br>
+<br>
+1. Перейдите на до&#1084;ашнюю страницу сайта SharePoint. Обычно она и&#1084;еет адрес <br>
+&nbsp; Http://localhost.<br>
+2. В лево&#1084; верхне&#1084; углу страницы узла выберите «Действия сайта -&gt; <br>
+&nbsp; «Дополнительные пара&#1084;етры». <br>
+3. На странице «Создание» выберите пункт «Внешний список».<br>
+4. На странице «Создание» введите и&#1084;я для списка. В разделе «Конфигурация <br>
+&nbsp; источника данных» наж&#1084;ите кнопку «Выбрать внешний тип контента». В окне <br>
+&nbsp; выбора внешнего типа контента выберите только что развернутый тип — <br>
+&nbsp; BdcSampleCSharp.BdcModel1.Customer или BdcSampleVB.Customer.<br>
+<br>
+&nbsp; *При&#1084;ечание. Если какие-либо типы не отображаются в окне выбора внешних <br>
+&nbsp; &nbsp;типов контента, воз&#1084;ожно, у вас нет разрешения на доступ в хранилище
+<br>
+&nbsp; &nbsp;&#1084;етаданных BDC. Для получения разрешения, откройте центр ад&#1084;инистрирования
+<br>
+&nbsp; &nbsp;SharePoint, перейдите на страницу «Управление приложения&#1084;и-служба&#1084;и» и
+<br>
+&nbsp; &nbsp;щелкните службу подключения к бизнес-данны&#1084;. На странице «Прос&#1084;отр внешних
+<br>
+&nbsp; &nbsp;типов контента» наж&#1084;ите кнопку «Задать разрешения хранилища &#1084;етаданных».
+<br>
+&nbsp; &nbsp;Зате&#1084; в диалогово&#1084; окне «Задание разрешений хранилища &#1084;етаданных» добавьте
+<br>
+&nbsp; &nbsp;свою учетную запись пользователя и предоставьте разрешения.<br>
+<br>
+5. Наж&#1084;ите кнопку «ОК» на странице «Создание».<br>
+<br>
+Теперь &#1084;ожно будет выводить список клиентов на странице SharePoint и создавать, <br>
+обновлять или удалять сведения о клиентах. Эти из&#1084;енения будут отражаться в <br>
+базе данных в режи&#1084;е реального вре&#1084;ени.<br>
+</p>
+
+</div>
+
+
+    </div>
+</body>
+</html>

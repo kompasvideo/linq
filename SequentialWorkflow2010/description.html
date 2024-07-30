@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>How to change the current record in the datasource of a bound ComboBox</title>
+        <link href="description/Galleries.css" type="text/css" rel="Stylesheet" /><link href="description/Layout.css" type="text/css" rel="Stylesheet" /><link href="description/Brand.css" type="text/css" rel="Stylesheet" />
+        <link href="description/iframedescription.css" rel="Stylesheet" type="text/css" />
+        <script src="description/offline.js" type="text/javascript"></script>
+        <style type="text/css">
+            #projectInfo {
+                overflow: auto;
+            }
+            #longDesc {
+                clear:both;
+                margin: 25px 0 10px 0;
+            }
+
+            #SampleIndexList{
+                margin-left: 15px;
+            }
+        </style>
+    </head>
+<body>
+    <div id="offlineDescription">
+        <h1>How to change the current record in the datasource of a bound ComboBox</h1>
+        <br/>
+        <div id="projectInfo">
+            <div class="section">
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Technologies">Technologies</label>
+                        <div id="Technologies">
+                            ADO.NET, Windows Forms, .NET Framework, Visual Basic .NET, .NET Framework 4.0, Windows General, WinForms
+                        </div>
+                    </div>
+                    <div class="itemBarLong tagsContainer">
+                        <label for="Topics">Topics</label>
+                        <div id="Topics">
+                            Controls, Data Binding, User Interface, Windows Forms, Navigation, Data Access, custom controls, GridView, How to, Language Samples
+                        </div>
+                    </div>
+                <div class="itemBarLong">
+                    <label for="Platforms">Platforms</label>
+                    <div id="Platforms">
+                        Desktop, Data
+                    </div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="Requirements">Requirements</label>
+                    <div id="Requirements">
+                        
+                    </div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Primary Language</label>
+                    <div id="LastUpdated">en-US</div>
+                </div>
+                <div class="itemBar">
+                    <label for="LastUpdated">Last Updated</label>
+                    <div id="LastUpdated">5/30/2012</div>
+                </div>
+                <div class="itemBarLong">
+                    <label for="License">License</label>
+                    <div id="License">
+                        <a href="license.rtf">Apache License, Version 2.0</a></div>
+                </div>
+                <div class="itemBar">
+                    <div class="viewonlinecont">
+                        <a data-link="online" href="http://code.msdn.microsoft.com/How-to-change-the-current-77c61530">View this sample online</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                   
+<script type="text/javascript">
+    function initializePage() {
+        var otherTabClass = 'otherTab';
+        var hiddenPreClass = 'hidden';
+
+        var htmlDecode = function(encodedData) {
+            var decodedData = "";
+            if (encodedData) {
+                var div = document.createElement('div');
+                div.innerHTML = encodedData;
+                decodedData = div.firstChild.nodeValue.replace( /\\r\\n/ig , '\r\n');
+            }
+            return decodedData;
+        };
+                
+        Galleries.iterateElem(Galleries.findElem(null, 'div', 'scriptcode'), function (index, scriptBlock) {
+            var titleElem = Galleries.findElem(scriptBlock, 'div', 'title')[0];
+            var labelElems = Galleries.findElem(titleElem, 'span');
+            if (labelElems.length == 0) {
+                labelElems = titleElem;
+            }
+            var languageSpans = Galleries.findElem(scriptBlock, 'span', 'hidden');
+            var pres = Galleries.findElem(scriptBlock, 'pre');
+            if (languageSpans.length > 0 && pres.length > 1) {
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    var languageSpan = languageSpans[index];
+                            
+                    elem.code = codePre.innerHTML.replace( /(\r(\n)?)|((\r)?\n)/ig , '\\r\\n');
+                            
+                    codePre.className = codePre.className.replace(hiddenPreClass, '');
+                            
+                    languageSpan.parentNode.removeChild(languageSpan);
+                });
+
+                pres = Galleries.findElem(scriptBlock, 'pre');
+                Galleries.iterateElem(labelElems, function(index, elem) {
+                    var codePre = pres[index];
+                    var labelSpan = elem;
+                    if (index == 0) {
+                        scriptBlock.activeTab = 0;
+                    }
+                    else {
+                        labelSpan.className += otherTabClass;
+                        codePre.className += hiddenPreClass;
+                    }
+                    Galleries.attachEventHandler(labelSpan, 'click', function(e) {
+                        var activeTab = scriptBlock.activeTab;
+                        labelElems[activeTab].className += otherTabClass;
+                        pres[activeTab].className += hiddenPreClass;
+
+                        codePre.className = codePre.className.replace(hiddenPreClass, '');
+                        labelSpan.className = labelSpan.className.replace(otherTabClass, '');
+                        scriptBlock.activeTab = index;
+                    });
+                });
+
+                var preview = Galleries.findElem(scriptBlock, 'div', 'preview');
+                if (preview.length == 0) {
+                    preview.push(pres[pres.length - 1]);
+                }
+                Galleries.iterateElem(preview, function(index, elem) {
+                    elem.parentNode.removeChild(elem);
+                });
+
+                if (window.clipboardData && clipboardData.setData) {
+                    var copyLink = document.createElement('a');
+                    copyLink.href = 'javascript:void(0);';
+                    copyLink.className = 'copyCode';
+                    copyLink.innerHTML = 'Copy Code';
+                    Galleries.attachEventHandler(copyLink, 'click', function (e) {
+                        clipboardData.setData("Text", htmlDecode(labelElems[scriptBlock.activeTab].code));
+                        return false;
+                    });
+                    scriptBlock.insertBefore(copyLink, scriptBlock.childNodes[0]);
+                }
+            }
+        });
+    }
+
+    Galleries.onWindowLoad(function(){
+        initializePage();
+    });
+
+</script>
+<div id="longDesc">
+    
+<h1>Introduction</h1>
+<p><em>Although it is not a very common scenario, it is sometimes useful to have the current record change when an item is selected in a bound combobox.&nbsp;</em></p>
+<p><em><img src="description/boundcombo.JPG" alt="" width="273" height="259"><br>
+</em></p>
+<h1><span>Building the Sample</span></h1>
+<p><em>Press the start button...</em></p>
+<p><span style="font-size:20px; font-weight:bold">Description</span></p>
+<p><em>Many programmers expect this to work right out of the box, but it is not as simple as that.</em></p>
+<p><em>The normal scenario is that a combobox is filled with a list of value-description pairs, by setting the DataSource, ValueMember and DisplayMember to the right values.&nbsp;</em></p>
+<p><em>The <em>ComboBox</em>&nbsp;selectedvalue property is then bound to another datasource, which only needs the underlying ValueMember data of the current item in the ComboBox as a foreign key.</em></p>
+<p><em>The scenario here is that other controls are bound to the same DataSource that is used to fill the ComboBox,</em></p>
+<p><em>and we expect the current record to change in all those other bound controls, when we change the selection in the ComboBox.</em></p>
+<p><em>When binding is used, there is always a BindingContext. You can consider this as a kind of collection where all the binding stuff between datasources and controls are kept.&nbsp;</em></p>
+<p><em>By default, the BindingContext of the Form is used. It's a kind of dependency property; if there's no instance created for the control itself, it goes looking for the BindingContext of its parent, the Form.</em></p>
+<p><em>Within that BindingContext, a collection of BindingManagerBase objects are kept. These objects keep track of the current record of a certain datasource that is used in a binding. They are created automatically for any combination of DataSource and DataMember
+ values that are mentioned in a DataBinding creation.&nbsp;</em></p>
+<p><em>You can compare a&nbsp;<em>BindingManagerBase somehow with a BindingNavigator:</em></em></p>
+<p><em><em><img src="description/bindingnavigator.bmp" alt="" width="242" height="20"></em></em></p>
+<p><em>It keeps track of the current record, and it has ways to change the current record.</em></p>
+<p><em>By setting the Position property, one can change the current record:</em></p>
+<div class="scriptcode">
+<div class="pluginEditHolder" pluginCommand="mceScriptCode">
+<div class="title"><span>Visual Basic</span></div>
+<div class="pluginLinkHolder"><span class="pluginEditHolderLink">Edit</span>|<span class="pluginRemoveHolderLink">Remove</span></div>
+<span class="hidden">vb</span>
+<pre class="hidden">Dim cm As BindingManagerBase =  _ 
+CType(ComboBox1.BindingContext(ComboBox1.DataSource, ComboBox1.ValueMember), BindingManagerBase)
+cm.Position = ComboBox1.SelectedIndex
+ </pre>
+<div class="preview">
+<pre class="vb"><span class="visualBasic__keyword">Dim</span>&nbsp;cm&nbsp;<span class="visualBasic__keyword">As</span>&nbsp;BindingManagerBase&nbsp;=&nbsp;&nbsp;_&nbsp;&nbsp;
+<span class="visualBasic__keyword">CType</span>(ComboBox1.BindingContext(ComboBox1.DataSource,&nbsp;ComboBox1.ValueMember),&nbsp;BindingManagerBase)&nbsp;
+cm.Position&nbsp;=&nbsp;ComboBox1.SelectedIndex&nbsp;
+&nbsp;</pre>
+</div>
+</div>
+</div>
+<p>As you can see, the bindingcontext needs 2 keys to get the bindingmanager; datasource and datamember.</p>
+<p>There are different ways that you can use datasource and datamember, but in order to get the right bindingmanager, one needs to use them in a consistent way.</p>
+<p>The sample contains the most common two alternatives.</p>
+
+</div>
+
+
+    </div>
+</body>
+</html>
