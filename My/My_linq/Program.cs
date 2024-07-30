@@ -56,6 +56,8 @@ namespace My_linq
             {
                 Console.WriteLine(num);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Where
         public void Linq5()
@@ -70,6 +72,8 @@ namespace My_linq
             {
                 Console.WriteLine("The word {0} is shorter than its value.", d);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Take
         public void Linq20()
@@ -83,6 +87,8 @@ namespace My_linq
             {
                 Console.WriteLine(n);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Skip
         public void Linq22()
@@ -96,6 +102,8 @@ namespace My_linq
             {
                 Console.WriteLine(n);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // TakeWhile
         public void Linq24()
@@ -109,6 +117,8 @@ namespace My_linq
             {
                 Console.WriteLine(num);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // TakeWhile        
         public void Linq25()
@@ -122,10 +132,13 @@ namespace My_linq
             {
                 Console.WriteLine(n);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // SkipWhile        
         public void Linq26()
         {
+            Console.WriteLine("Linq26");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             var allButFirst3Numbers = numbers.SkipWhile(n => n % 3 != 0);
 
@@ -134,10 +147,13 @@ namespace My_linq
             {
                 Console.WriteLine(n);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // SkipWhile        
         public void Linq27()
         {
+            Console.WriteLine("Linq27");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
             var laterNumbers = numbers.SkipWhile((n, index) => n >= index);
@@ -147,26 +163,35 @@ namespace My_linq
             {
                 Console.WriteLine(n);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // OrderBy        
         public void Linq31()
         {
+            Console.WriteLine("Linq31");
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
             var sortedWords = words.OrderBy(a => a, new CaseInsensitiveComparer());
             ObjectDumper.Write(sortedWords);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // OrderByDescending
         public void Linq34()
         {
+            Console.WriteLine("Linq34");
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
 
             var sortedWords = words.OrderByDescending(a => a, new CaseInsensitiveComparer());
 
             ObjectDumper.Write(sortedWords);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // OrderBy        
         public void Linq36()
         {
+            Console.WriteLine("Linq36");
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
 
             var sortedWords = words.OrderBy(a => a.Length)
@@ -181,19 +206,25 @@ namespace My_linq
             ObjectDumper.Write(sortedWords);
 
             ObjectDumper.Write(sortedWords3);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // OrderBy        
         public void Linq38()
         {
+            Console.WriteLine("Linq38");
             string[] words = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
 
             var sortedWords = words.OrderBy(a => a.Length)
                 .ThenByDescending(a => a, new CaseInsensitiveComparer());
             ObjectDumper.Write(sortedWords);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // ToDictionary        
         public void Linq56()
         {
+            Console.WriteLine("Linq56");
             var scoreRecords = new[] { new {Name = "Alice", Score = 50},
                                         new {Name = "Bob"  , Score = 40},
                                         new {Name = "Cathy", Score = 45}
@@ -206,10 +237,13 @@ namespace My_linq
             {
                 Console.WriteLine($"{item.Key} - {item.Value}");
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // OfType        
         public void Linq57()
         {
+            Console.WriteLine("Linq57");
             object[] numbers = { null, 1.0, "two", 3, "four", 5, "six", 7.0 };
             var doubles = numbers.OfType<double>();
             Console.WriteLine("Numbers stored as doubles:");
@@ -217,132 +251,186 @@ namespace My_linq
             {
                 Console.WriteLine(d);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // First        
         public void Linq59()
         {
+            Console.WriteLine("Linq59");
             string[] strings = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
             var startsWithO = strings.First(s => s[0] == 'o');
             Console.WriteLine("A string starting with 'o': {0}", startsWithO);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // FirstOrDefault        
         public void Linq61()
         {
+            Console.WriteLine("Linq61");
             int[] numbers = { };
             int firstNumOrDefault = numbers.FirstOrDefault();
             Console.WriteLine(firstNumOrDefault);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // FirstOrDefault
         public void Linq62()
         {
+            Console.WriteLine("Linq62");
             List<Product> products = GetProductList();
             Product product789 = products.FirstOrDefault(p => p.ProductID == 789);
             Console.WriteLine("Product 789 exists: {0}", product789 != null);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Enumerable.Repeat        
         public void Linq66()
         {
+            Console.WriteLine("Linq66");
             var numbers = Enumerable.Repeat(7, 10);
             foreach (var n in numbers)
             {
                 Console.WriteLine(n);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Any Contains
         public void Linq67()
         {
+            Console.WriteLine("Linq67");
             string[] words = { "believe", "relief", "receipt", "field" };
             bool iAfterE = words.Any(w => w.Contains("ei"));
             Console.WriteLine("There is a word in the list that contains 'ei': {0}", iAfterE);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // All
         public void Linq70()
         {
+            Console.WriteLine("Linq70");
             int[] numbers = { 1, 11, 3, 19, 41, 65, 29 };
             bool onlyOdd = numbers.All(n => n % 2 == 1);
             Console.WriteLine("The list contains only odd numbers: {0}", onlyOdd);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Distinct Count
         public void Linq73()
         {
+            Console.WriteLine("Linq73");
             int[] primeFactorsOf300 = { 2, 2, 3, 5, 5 };
             int uniqueFactors = primeFactorsOf300.Distinct().Count();
             Console.WriteLine("There are {0} unique prime factors of 300.", uniqueFactors);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Count
         public void Linq74()
         {
+            Console.WriteLine("Linq74");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             int oddNumbers = numbers.Count(n => n % 2 == 1);
             Console.WriteLine("There are {0} odd numbers in the list.", oddNumbers);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Sum
         public void Linq78()
         {
+            Console.WriteLine("Linq78");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             double numSum = numbers.Sum();
             Console.WriteLine("The sum of the numbers is {0}.", numSum);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Sum
         public void Linq79()
         {
+            Console.WriteLine("Linq79");
             string[] words = { "cherry", "apple", "blueberry" };
             double totalChars = words.Sum(n => n.Length);
             Console.WriteLine("There are a total of {0} characters in these words.", totalChars);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Min
         public void Linq81()
         {
+            Console.WriteLine("Linq81");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             int minNum = numbers.Min();
             Console.WriteLine("The minimum number is {0}.", minNum);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Min
         public void Linq82()
         {
+            Console.WriteLine("Linq82");
             string[] words = { "cherry", "apple", "blueberry" };
             int shortestWord = words.Min(w => w.Length);
             Console.WriteLine("The shortest word is {0} characters long.", shortestWord);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Max
         public void Linq85()
         {
+            Console.WriteLine("Linq85");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             int maxNum = numbers.Max();
             Console.WriteLine("The maximum number is {0}.", maxNum);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Max
         public void Linq86()
         {
+            Console.WriteLine("Linq86");
             string[] words = { "cherry", "apple", "blueberry" };
             int longestLength = words.Max(x => x.Length);
             Console.WriteLine("The longest word is {0} characters long.", longestLength);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Average
         public void Linq89()
         {
+            Console.WriteLine("Linq89");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             double averageNum = numbers.Average();
             Console.WriteLine("The average number is {0}.", averageNum);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Average
         public void Linq90()
         {
+            Console.WriteLine("Linq90");
             string[] words = { "cherry", "apple", "blueberry" };
             double averageLength = words.Average(w => w.Length);
             Console.WriteLine("The average word length is {0} characters.", averageLength);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Aggregate
         public void Linq92()
         {
+            Console.WriteLine("Linq92");
             double[] doubles = { 1.7, 2.3, 1.9, 4.1, 2.9 };
             double product = doubles.Aggregate((runningProduct, nextFactor) 
                 => runningProduct * nextFactor);
             Console.WriteLine("Total product of all numbers: {0}", product);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // Concat
         public void Linq94()
         {
+            Console.WriteLine("Linq94");
             int[] numbersA = { 0, 2, 4, 5, 6, 7, 8, 9 };
             int[] numbersB = { 1, 3, 5, 7, 8 };
             var allNumbers = numbersA.Concat(numbersB);
@@ -351,24 +439,32 @@ namespace My_linq
             {
                 Console.WriteLine(n);
             }
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // SequenceEqual
         public void Linq96()
         {
+            Console.WriteLine("Linq96");
             var wordsA = new string[] { "cherry", "apple", "blueberry" };
             var wordsB = new string[] { "cherry", "apple", "blueberry" };
             bool match = wordsA.SequenceEqual(wordsB);
             Console.WriteLine("The sequences match: {0}", match);
+            Console.WriteLine();
+            Console.WriteLine();
         }
         // SequenceEqual
         public void Linq97()
         {
+            Console.WriteLine("Linq97");
             var wordsA = new string[] { "cherry", "apple", "blueberry" };
             var wordsB = new string[] { "apple", "blueberry", "cherry" };
 
             bool match = wordsA.SequenceEqual(wordsB);
 
             Console.WriteLine("The sequences match: {0}", match);
+            Console.WriteLine();
+            Console.WriteLine();
         }
 
 
