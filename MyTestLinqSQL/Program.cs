@@ -1,6 +1,6 @@
 ﻿using System.Xml.Linq;
 
-namespace MyLinqSQL
+namespace MyTestLinqSQL
 {
     internal class Program
     {
@@ -42,11 +42,11 @@ namespace MyLinqSQL
             //samples.Linq99();
             //samples.Linq100();
             //samples.Linq101();
-            samples.Linq102();
+            //samples.Linq102();
             //samples.Linq103();
             //samples.Linq104();
             //samples.Linq105();
-            //samples.Linq106();
+            samples.Linq106();
             //samples.Linq107();
         }
     }
@@ -57,10 +57,12 @@ namespace MyLinqSQL
         public void Linq1()
         {
             Console.WriteLine("Linq1");
-            int[] numbers = {5,4,1,3,9,8,6,7,2,0 };
-            var lowNums = from num in numbers
-                          where num < 5
-                          select num;
+            int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+
+            // where < 5
+            var lowNums =  numbers;
+            //
+
             foreach (var num in lowNums)
             {
                 Console.WriteLine(num);
@@ -68,15 +70,15 @@ namespace MyLinqSQL
             Console.WriteLine();
             Console.WriteLine();
         }
-        // RestrictionOperators - where 
+        // RestrictionOperators - where
         public void Linq2()
         {
             Console.WriteLine("Linq2");
             List<Product> products = GetProductList();
-            var soldOutProducts =
-                from prod in products
-                where prod.UnitsInStock == 0
-                select prod;
+
+            // where prod.UnitsInStock == 0
+            var soldOutProducts = products;                
+            //
 
             Console.WriteLine("Sold out products:");
             foreach (var product in soldOutProducts)
@@ -92,10 +94,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq3");
             List<Product> products = GetProductList();
 
-            var expensiveInStockProducts =
-                from prod in products
-                where prod.UnitsInStock > 0 && prod.UnitPrice > 3.00M
-                select prod;
+            // where prod.UnitsInStock > 0 && prod.UnitPrice > 3.00M
+            var expensiveInStockProducts = 
+                products
+                ;
+            //
 
             Console.WriteLine("In-stock products that cost more than 3.00:");
             foreach (var product in expensiveInStockProducts)
@@ -111,10 +114,12 @@ namespace MyLinqSQL
             Console.WriteLine("Linq4");
             List<Customer> customers = GetCustomerList();
 
-            var waCustomers =
-                from cust in customers
-                where cust.Region == "WA"
-                select cust;
+            // where cust.Region == "WA"
+            var waCustomers = 
+                customers
+                
+                ;
+            //
 
             Console.WriteLine("Customers from Washington and their orders:");
             foreach (var customer in waCustomers)
@@ -134,12 +139,13 @@ namespace MyLinqSQL
             Console.WriteLine("Linq21");
             List<Customer> customers = GetCustomerList();
 
+            // where  cust.Region == "WA"
+            // select new { cust.CustomerID, order.OrderID, order.OrderDate }
+            // take 3
             var first3WAOrders = (
-                from cust in customers
-                from order in cust.Orders
-                where cust.Region == "WA"
-                select new { cust.CustomerID, order.OrderID, order.OrderDate })
-                .Take(3);
+                customers
+                );
+            //
 
             Console.WriteLine("First 3 orders in WA:");
             foreach (var order in first3WAOrders)
@@ -155,13 +161,16 @@ namespace MyLinqSQL
             Console.WriteLine("Linq23");
             List<Customer> customers = GetCustomerList();
 
-            var waOrders =
-                from cust in customers
-                from order in cust.Orders
-                where cust.Region == "WA"
-                select new { cust.CustomerID, order.OrderID, order.OrderDate };
+            // where cust.Region == "WA"
+            // select new { cust.CustomerID, order.OrderID, order.OrderDate }
+            // skip
+            var waOrders = 
+                 customers
+               
+                ;
 
-            var allButFirst2Orders = waOrders.Skip(2);
+            var allButFirst2Orders = waOrders.Skip(2); 
+            //
 
             Console.WriteLine("All but first 2 orders in WA:");
             foreach (var order in allButFirst2Orders)
@@ -177,10 +186,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq28");
             string[] words = { "cherry", "apple", "blueberry" };
 
-            var sortedWords =
-                from word in words
-                orderby word
-                select word;
+            // orderby
+            var sortedWords = 
+                words
+                ;
+            //
 
             Console.WriteLine("The sorted list of words:");
             foreach (var w in sortedWords)
@@ -190,16 +200,17 @@ namespace MyLinqSQL
             Console.WriteLine();
             Console.WriteLine();
         }
-        // OrderingOperators - orderby
+        // OrderingOperators - orderby 
         public void Linq29()
         {
             Console.WriteLine("Linq29");
             string[] words = { "cherry", "apple", "blueberry" };
 
-            var sortedWords =
-                from word in words
-                orderby word.Length
-                select word;
+            // orderby length
+            var sortedWords = 
+                  words
+                ;
+            //
 
             Console.WriteLine("The sorted list of words (by length):");
             foreach (var w in sortedWords)
@@ -215,10 +226,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq30");
             List<Product> products = GetProductList();
 
+            // orderby
             var sortedProducts =
-                from prod in products
-                orderby prod.ProductName
-                select prod;
+                 products
+                ;
+            //
 
             ObjectDumper.Write(sortedProducts);
             Console.WriteLine();
@@ -230,10 +242,12 @@ namespace MyLinqSQL
             Console.WriteLine("Linq32");
             double[] doubles = { 1.7, 2.3, 1.9, 4.1, 2.9 };
 
+            // orderby descending
             var sortedDoubles =
-                from d in doubles
-                orderby d descending
-                select d;
+                 doubles
+
+                ;
+            //
 
             Console.WriteLine("The doubles from highest to lowest:");
             foreach (var d in sortedDoubles)
@@ -249,25 +263,28 @@ namespace MyLinqSQL
             Console.WriteLine("Linq33");
             List<Product> products = GetProductList();
 
+            // orderby descending prod.UnitsInStock
             var sortedProducts =
-                from prod in products
-                orderby prod.UnitsInStock descending
-                select prod;
+                products
+               ;
+            //
 
             ObjectDumper.Write(sortedProducts);
             Console.WriteLine();
             Console.WriteLine();
         }
-        // OrderingOperators - orderby
+        // OrderingOperators - orderby length digit
         public void Linq35()
         {
             Console.WriteLine("Linq35");
             string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            var sortedDigits =
-                from digit in digits
-                orderby digit.Length, digit
-                select digit;
+            // orderby length digit
+            var sortedDigits = 
+               digits
+              
+               ;
+            //
 
             Console.WriteLine("Sorted digits:");
             foreach (var d in sortedDigits)
@@ -288,12 +305,13 @@ namespace MyLinqSQL
                      .ThenBy(a => a, new CaseInsensitiveComparer());
 
             // Another way. TODO is this use of ThenBy correct? It seems to work on this sample array.
+            // OrderBy ThenBy
             var sortedWords2 =
-                from word in words
-                orderby word.Length
-                select word;
+                 words
+                ;
 
-            var sortedWords3 = sortedWords2.ThenBy(a => a, new CaseInsensitiveComparer());
+            var sortedWords3 = sortedWords2;
+            //
 
             ObjectDumper.Write(sortedWords);
 
@@ -307,10 +325,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq37");
             List<Product> products = GetProductList();
 
+            // orderby descending
             var sortedProducts =
-                from prod in products
-                orderby prod.Category, prod.UnitPrice descending
-                select prod;
+                products
+               ;
+            //
 
             ObjectDumper.Write(sortedProducts);
             Console.WriteLine();
@@ -322,11 +341,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq39");
             string[] digits = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            var reversedIDigits = (
-                from digit in digits
-                where digit[1] == 'i'
-                select digit)
-                .Reverse();
+            // where reverse
+            var reversedIDigits = 
+                 digits
+                ;
+            //
 
             Console.WriteLine("A backwards list of the digits with a second character of 'i':");
             foreach (var d in reversedIDigits)
@@ -336,17 +355,19 @@ namespace MyLinqSQL
             Console.WriteLine();
             Console.WriteLine();
         }
-        // ConversionOperators - orderby descending toarray
+        // ConversionOperators - orderby descending toarray 
         public void Linq54()
         {
             Console.WriteLine("Linq54");
             double[] doubles = { 1.7, 2.3, 1.9, 4.1, 2.9 };
 
-            var sortedDoubles =
-                from d in doubles
-                orderby d descending
-                select d;
-            var doublesArray = sortedDoubles.ToArray();
+            // orderby descending toarray 
+            var sortedDoubles = 
+                 doubles
+                ;
+                
+            var doublesArray = sortedDoubles;
+            //
 
             Console.WriteLine("Every other double from highest to lowest:");
             for (int d = 0; d < doublesArray.Length; d += 2)
@@ -362,11 +383,12 @@ namespace MyLinqSQL
             Console.WriteLine("Linq55");
             string[] words = { "cherry", "apple", "blueberry" };
 
+            // orderby tolist
             var sortedWords =
-                from w in words
-                orderby w
-                select w;
-            var wordList = sortedWords.ToList();
+                 words
+                ;
+            var wordList = sortedWords;
+            //
 
             Console.WriteLine("The sorted word list:");
             foreach (var w in wordList)
@@ -382,11 +404,10 @@ namespace MyLinqSQL
             Console.WriteLine("Linq58");
             List<Product> products = GetProductList();
 
-            Product product12 = (
-                from prod in products
-                where prod.ProductID == 12
-                select prod)
-                .First();
+            // where first
+            Product product12 = products        [0];
+
+            //
 
             ObjectDumper.Write(product12);
             Console.WriteLine();
@@ -398,11 +419,10 @@ namespace MyLinqSQL
             Console.WriteLine("Linq64");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            int fourthLowNum = (
-                from num in numbers
-                where num > 5
-                select num)
-                .ElementAt(1);  // second number is index 1 because sequences use 0-based indexing
+            //// where elementAt 1
+            int fourthLowNum = 0;  // second number is index 1 because sequences use 0-based indexing
+
+            //
 
             Console.WriteLine("Second number > 5: {0}", fourthLowNum);
             Console.WriteLine();
@@ -412,28 +432,29 @@ namespace MyLinqSQL
         public void Linq65()
         {
             Console.WriteLine("Linq65");
-            var numbers =
-                from n in Enumerable.Range(100, 50)
-                select new { Number = n, OddEven = n % 2 == 1 ? "odd" : "even" };
+            // Enumerable.Range 100 50
+            var numbers = 0;
+                
+            //
 
-            foreach (var n in numbers)
+            //foreach (var n in numbers)
             {
-                Console.WriteLine("The number {0} is {1}.", n.Number, n.OddEven);
+                //Console.WriteLine("The number {0} is {1}.", n.Number, n.OddEven);
             }
             Console.WriteLine();
             Console.WriteLine();
         }
-        // Quantifiers - where any
+        // Quantifiers - where any 
         public void Linq69()
         {
             Console.WriteLine("Linq69");
             List<Product> products = GetProductList();
 
-            var productGroups =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                where prodGroup.Any(p => p.UnitsInStock == 0)
-                select new { Category = prodGroup.Key, Products = prodGroup };
+            // where any 
+            var productGroups = 0;
+               
+               ;
+            //
 
             ObjectDumper.Write(productGroups, 1);
             Console.WriteLine();
@@ -445,11 +466,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq72");
             List<Product> products = GetProductList();
 
-            var productGroups =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                where prodGroup.All(p => p.UnitsInStock > 0)
-                select new { Category = prodGroup.Key, Products = prodGroup };
+            // where all
+            var productGroups = 
+                 products
+                ;
+            //
 
             ObjectDumper.Write(productGroups, 1);
             Console.WriteLine();
@@ -461,9 +482,12 @@ namespace MyLinqSQL
             Console.WriteLine("Linq76");
             List<Customer> customers = GetCustomerList();
 
+            // count
             var orderCounts =
-                from cust in customers
-                select new { cust.CustomerID, OrderCount = cust.Orders.Count() };
+                 customers
+                
+                ;
+            //
 
             ObjectDumper.Write(orderCounts);
             Console.WriteLine();
@@ -475,10 +499,10 @@ namespace MyLinqSQL
             Console.WriteLine("Linq77");
             List<Product> products = GetProductList();
 
-            var categoryCounts =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                select new { Category = prodGroup.Key, ProductCount = prodGroup.Count() };
+            // count
+            var categoryCounts = 0;
+
+            //
 
             ObjectDumper.Write(categoryCounts);
             Console.WriteLine();
@@ -490,10 +514,12 @@ namespace MyLinqSQL
             Console.WriteLine("Linq80");
             List<Product> products = GetProductList();
 
-            var categories =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                select new { Category = prodGroup.Key, TotalUnitsInStock = prodGroup.Sum(p => p.UnitsInStock) };
+            // group by  into, sum 
+            var categories = 
+                 products
+                
+            ;
+            //
 
             ObjectDumper.Write(categories);
             Console.WriteLine();
@@ -505,10 +531,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq83");
             List<Product> products = GetProductList();
 
+            // group by  into, min
             var categories =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                select new { Category = prodGroup.Key, CheapestPrice = prodGroup.Min(p => p.UnitPrice) };
+                 products
+                ;
+            //
 
             ObjectDumper.Write(categories);
             Console.WriteLine();
@@ -520,11 +547,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq84");
             List<Product> products = GetProductList();
 
+            // group by  into, let, min
             var categories =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                let minPrice = prodGroup.Min(p => p.UnitPrice)
-                select new { Category = prodGroup.Key, CheapestProducts = prodGroup.Where(p => p.UnitPrice == minPrice) };
+               products
+               ;
+            //
 
             ObjectDumper.Write(categories, 1);
             Console.WriteLine();
@@ -536,10 +563,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq87");
             List<Product> products = GetProductList();
 
-            var categories =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                select new { Category = prodGroup.Key, MostExpensivePrice = prodGroup.Max(p => p.UnitPrice) };
+            // group by  into, max
+            var categories = 
+               products
+               ;
+            //
 
             ObjectDumper.Write(categories);
             Console.WriteLine();
@@ -551,11 +579,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq88");
             List<Product> products = GetProductList();
 
-            var categories =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                let maxPrice = prodGroup.Max(p => p.UnitPrice)
-                select new { Category = prodGroup.Key, MostExpensiveProducts = prodGroup.Where(p => p.UnitPrice == maxPrice) };
+            // group by  into, let, max
+            var categories = 
+                 products
+                ;
+            //
 
             ObjectDumper.Write(categories, 1);
             Console.WriteLine();
@@ -567,10 +595,11 @@ namespace MyLinqSQL
             Console.WriteLine("Linq91");
             List<Product> products = GetProductList();
 
-            var categories =
-                from prod in products
-                group prod by prod.Category into prodGroup
-                select new { Category = prodGroup.Key, AveragePrice = prodGroup.Average(p => p.UnitPrice) };
+            // group by  into, let, average
+            var categories = 
+                 products
+                ;
+            //
 
             ObjectDumper.Write(categories);
             Console.WriteLine();
@@ -584,10 +613,11 @@ namespace MyLinqSQL
 
             int[] attemptedWithdrawals = { 20, 10, 40, 50, 10, 70, 30 };
 
-            double endBalance =
-                attemptedWithdrawals.Aggregate(startBalance,
-                    (balance, nextWithdrawal) =>
-                        ((nextWithdrawal <= balance) ? (balance - nextWithdrawal) : balance));
+            // aggregate
+            double endBalance = 
+                0
+                ;
+            //
 
             Console.WriteLine("Ending balance: {0}", endBalance);
             Console.WriteLine();
@@ -606,8 +636,10 @@ namespace MyLinqSQL
             var productNames =
                 from prod in products
                 select prod.ProductName;
-
-            var allNames = customerNames.Concat(productNames);
+            
+            // concat
+            var allNames = customerNames;
+            //
 
             Console.WriteLine("Customer and product names:");
             foreach (var n in allNames)
@@ -625,9 +657,12 @@ namespace MyLinqSQL
             int[] numbers = new int[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
             int i = 0;
-            var simpleQuery =
-                from num in numbers
-                select ++i;
+            // increment
+            var simpleQuery = 
+                numbers
+                
+                ;
+            //
 
             // The local variable 'i' is not incremented
             // until the query is executed in the foreach loop.
@@ -649,10 +684,14 @@ namespace MyLinqSQL
             int[] numbers = new int[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
             int i = 0;
-            var immediateQuery = (
-                from num in numbers
-                select ++i)
-                .ToList();
+
+            // increment tolist
+            var immediateQuery = 
+                (
+                 numbers
+                )
+                 ;
+            //
 
             Console.WriteLine("The current value of i is {0}", i); //i has been incremented
 
@@ -668,10 +707,12 @@ namespace MyLinqSQL
         {
             Console.WriteLine("Linq101");
             int[] numbers = new int[] { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
-            var lowNumbers =
-                from num in numbers
-                where num <= 3
-                select num;
+
+            // where <= 3
+            var lowNumbers = 
+                numbers
+                 ;
+            //
 
             Console.WriteLine("First run numbers <= 3:");
             foreach (int n in lowNumbers)
@@ -715,14 +756,15 @@ namespace MyLinqSQL
             List<Customer> customers = GetCustomerList();
             List<Supplier> suppliers = GetSupplierList();
 
+            // join on equals
             var custSupJoin =
-                from sup in suppliers
-                join cust in customers on sup.Country equals cust.Country
-                select new { Country = sup.Country, SupplierName = sup.SupplierName, CustomerName = cust.CompanyName };
+                suppliers
+                ;
+            //
 
             foreach (var item in custSupJoin)
             {
-                Console.WriteLine("Country = {0}, Supplier = {1}, Customer = {2}", item.Country, item.SupplierName, item.CustomerName);
+                //Console.WriteLine("Country = {0}, Supplier = {1}, Customer = {2}", item.Country, item.SupplierName, item.CustomerName);
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -734,19 +776,19 @@ namespace MyLinqSQL
             List<Customer> customers = GetCustomerList();
             List<Supplier> suppliers = GetSupplierList();
 
-            var custSupQuery =
-                from sup in suppliers
-                join cust in customers on sup.Country equals cust.Country into cs
-                select new { Key = sup.Country, Items = cs };
-
+            // join on equals into
+            var custSupQuery = 
+                suppliers
+                ;
+            //
 
             foreach (var item in custSupQuery)
             {
-                Console.WriteLine(item.Key + ":");
-                foreach (var element in item.Items)
-                {
-                    Console.WriteLine("   " + element.CompanyName);
-                }
+                //Console.WriteLine(item.Key + ":");
+                //foreach (var element in item.Items)
+                //{
+                //    Console.WriteLine("   " + element.CompanyName);
+                //}
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -764,15 +806,15 @@ namespace MyLinqSQL
 
             List<Product> products = GetProductList();
 
-            var prodByCategory =
-                from cat in categories
-                join prod in products on cat equals prod.Category into ps
-                from p in ps
-                select new { Category = cat, p.ProductName };
+            // join on equals into
+            var prodByCategory = 
+                 categories
+                ;
+            //
 
             foreach (var item in prodByCategory)
             {
-                Console.WriteLine(item.ProductName + ": " + item.Category);
+                //Console.WriteLine(item.ProductName + ": " + item.Category);
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -784,21 +826,15 @@ namespace MyLinqSQL
             List<Customer> customers = GetCustomerList();
             List<Supplier> suppliers = GetSupplierList();
 
-            var supplierCusts =
-                from sup in suppliers
-                join cust in customers on sup.Country equals cust.Country into cs
-                from c in cs.DefaultIfEmpty()  // DefaultIfEmpty preserves left-hand elements that have no matches on the right side 
-                orderby sup.SupplierName
-                select new
-                {
-                    Country = sup.Country,
-                    CompanyName = c == null ? "(No customers)" : c.CompanyName,
-                    SupplierName = sup.SupplierName
-                };
+            // join on equals into orderby select new
+            var supplierCusts = 
+                 suppliers
+                ;
+            //
 
             foreach (var item in supplierCusts)
             {
-                Console.WriteLine("{0} ({1}): {2}", item.SupplierName, item.Country, item.CompanyName);
+                //Console.WriteLine("{0} ({1}): {2}", item.SupplierName, item.Country, item.CompanyName);
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -810,21 +846,15 @@ namespace MyLinqSQL
             List<Customer> customers = GetCustomerList();
             List<Supplier> suppliers = GetSupplierList();
 
-            var custSuppliers =
-                from cust in customers
-                join sup in suppliers on cust.Country equals sup.Country into ss
-                from s in ss.DefaultIfEmpty()
-                orderby cust.CompanyName
-                select new
-                {
-                    Country = cust.Country,
-                    CompanyName = cust.CompanyName,
-                    SupplierName = s == null ? "(No suppliers)" : s.SupplierName
-                };
+            // join on equals into orderby select new
+            var custSuppliers = 
+                customers
+                ;
+            //
 
             foreach (var item in custSuppliers)
             {
-                Console.WriteLine("{0} ({1}): {2}", item.CompanyName, item.Country, item.SupplierName);
+                //Console.WriteLine("{0} ({1}): {2}", item.CompanyName, item.Country, item.SupplierName);
             }
             Console.WriteLine();
             Console.WriteLine();
@@ -836,22 +866,13 @@ namespace MyLinqSQL
             List<Customer> customers = GetCustomerList();
             List<Supplier> suppliers = GetSupplierList();
 
-            var supplierCusts =
-                from sup in suppliers
-                join cust in customers on new { sup.City, sup.Country } equals new { cust.City, cust.Country } into cs
-                from c in cs.DefaultIfEmpty() //Remove DefaultIfEmpty method call to make this an inner join
-                orderby sup.SupplierName
-                select new
-                {
-                    Country = sup.Country,
-                    City = sup.City,
-                    SupplierName = sup.SupplierName,
-                    CompanyName = c == null ? "(No customers)" : c.CompanyName
-                };
+            // join on new equals new into orderby select new
+            var supplierCusts = suppliers;
+            //
 
             foreach (var item in supplierCusts)
             {
-                Console.WriteLine("{0} ({1}, {2}): {3}", item.SupplierName, item.City, item.Country, item.CompanyName);
+                //Console.WriteLine("{0} ({1}, {2}): {3}", item.SupplierName, item.City, item.Country, item.CompanyName);
             }
             Console.WriteLine();
             Console.WriteLine();
