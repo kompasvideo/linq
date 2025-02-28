@@ -17,13 +17,13 @@ namespace My_linq
             //samples.Linq27();
             //samples.Linq31();
             //samples.Linq34();
-            samples.Linq36();
+            //samples.Linq36();
             //samples.Linq38();
             //samples.Linq56();
             //samples.Linq57();
             //samples.Linq59();
             //samples.Linq61();
-            //samples.Linq62();
+            samples.Linq62();
             //samples.Linq66();
             //samples.Linq67();
             //samples.Linq70();

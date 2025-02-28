@@ -5,7 +5,7 @@ namespace MyTestLinq
     internal class Program
     {
         static void Main(string[] args)
-        {
+        {            
             LinqSamples samples = new LinqSamples();
             //samples.Linq1();
             //samples.Linq5();
@@ -17,7 +17,7 @@ namespace MyTestLinq
             //samples.Linq27();
             //samples.Linq31();
             //samples.Linq34();
-            samples.Linq36();
+            //samples.Linq36();
             //samples.Linq38();
             //samples.Linq56();
             //samples.Linq57();
@@ -39,7 +39,7 @@ namespace MyTestLinq
             //samples.Linq90();
             //samples.Linq92();
             //samples.Linq94();
-            //samples.Linq96();
+            samples.Linq96();
             //samples.Linq97();
         }
     }
@@ -167,7 +167,7 @@ namespace MyTestLinq
             Console.WriteLine("Linq26");
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
-            // skipWhile 
+            // skipWhile 3 != 0
             //  3, 9, 8, 6, 7, 2, 0
             var allButFirst3Numbers = numbers;
             //
@@ -341,7 +341,7 @@ namespace MyTestLinq
             List<Product> products = GetProductList();
 
             // FirstOrDefault ProductID == 789
-            Product product789 = products   [0];
+            Product product789 = products  [0];
             //
 
             Console.WriteLine("Product 789 exists: {0}", product789 != null);
@@ -369,7 +369,7 @@ namespace MyTestLinq
         {
             Console.WriteLine("Linq67");
             string[] words = { "believe", "relief", "receipt", "field" };
-            
+
             // any contains "ei"
             bool iAfterE = words is null;
             //
@@ -383,9 +383,9 @@ namespace MyTestLinq
         {
             Console.WriteLine("Linq70");
             int[] numbers = { 1, 11, 3, 19, 41, 65, 29 };
-            
+
             // All n % 2  == 1
-            bool onlyOdd = numbers      != null;
+            bool onlyOdd = numbers       != null;
             //
 
             Console.WriteLine("The list contains only odd numbers: {0}", onlyOdd);
@@ -414,8 +414,8 @@ namespace MyTestLinq
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
             // Count n % 2 == 1
-            int oddNumbers = 0; // numbers
-            //
+            int oddNumbers =  0; // numbers
+            //  5
 
             Console.WriteLine("There are {0} odd numbers in the list.", oddNumbers);
             Console.WriteLine();
@@ -429,7 +429,7 @@ namespace MyTestLinq
 
             // Sum
             double numSum = 0;// numbers
-            //
+            // 45
 
             Console.WriteLine("The sum of the numbers is {0}.", numSum);
             Console.WriteLine();
@@ -443,7 +443,7 @@ namespace MyTestLinq
 
             // Sum length
             double totalChars = words.Length;
-            //
+            // 20
 
             Console.WriteLine("There are a total of {0} characters in these words.", totalChars);
             Console.WriteLine();
@@ -471,7 +471,7 @@ namespace MyTestLinq
 
             // min length
             int shortestWord = 0; // words
-            //
+            // 5
 
             Console.WriteLine("The shortest word is {0} characters long.", shortestWord);
             Console.WriteLine();
@@ -485,7 +485,7 @@ namespace MyTestLinq
 
             // max
             int maxNum = 0; // numbers
-            //
+            // 9
 
             Console.WriteLine("The maximum number is {0}.", maxNum);
             Console.WriteLine();
@@ -499,7 +499,7 @@ namespace MyTestLinq
 
             // max length
             int longestLength = 0; // words
-            //
+            // 9
 
             Console.WriteLine("The longest word is {0} characters long.", longestLength);
             Console.WriteLine();
@@ -513,7 +513,7 @@ namespace MyTestLinq
 
             // Average
             double averageNum = 0; // numbers
-            //
+            // 4.5
 
             Console.WriteLine("The average number is {0}.", averageNum);
             Console.WriteLine();
@@ -527,7 +527,7 @@ namespace MyTestLinq
 
             // Average length
             double averageLength = 0; //words
-            //
+            // 6.66
 
             Console.WriteLine("The average word length is {0} characters.", averageLength);
             Console.WriteLine();

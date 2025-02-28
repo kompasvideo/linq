@@ -7,7 +7,7 @@ namespace MyTestLinqSQL
         static void Main(string[] args)
         {
             LinqSamples samples = new LinqSamples();
-            //samples.Linq1();
+            samples.Linq1();
             //samples.Linq2();
             //samples.Linq3();
             //samples.Linq4();
@@ -46,7 +46,7 @@ namespace MyTestLinqSQL
             //samples.Linq103();
             //samples.Linq104();
             //samples.Linq105();
-            samples.Linq106();
+            //samples.Linq106();
             //samples.Linq107();
         }
     }
@@ -60,7 +60,7 @@ namespace MyTestLinqSQL
             int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
 
             // where < 5
-            var lowNums =  numbers;
+            var lowNums = numbers;
             //
 
             foreach (var num in lowNums)
